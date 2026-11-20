@@ -176,7 +176,8 @@ input[type=color]{width:42px;height:38px;padding:2px;border-radius:10px;backgrou
 #login .logo-big{width:200px;aspect-ratio:1652/1008;background:var(--text);-webkit-mask:url(../marca/logo.png) center/contain no-repeat;mask:url(../marca/logo.png) center/contain no-repeat}
 #login p{color:var(--text2);font-size:15px;line-height:1.45}
 #login .err{color:var(--red);font-size:14px;min-height:20px}
-#gbtn{min-height:44px;display:flex;justify-content:center}
+#gbtn{min-height:44px;width:280px;margin:0 auto;display:flex;justify-content:center;color-scheme:light;background:transparent;border-radius:999px;overflow:hidden}
+#gbtn iframe{color-scheme:light;background:transparent!important;margin:0!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -240,7 +241,7 @@ function thumbOf(p, uid){ return p.fotos && p.fotos[0] ? '<img loading="lazy" re
 var APPS_URL = 'https://script.google.com/macros/s/AKfycbw_nJ8LZGCmj8wu1JiVGBqV0n2moc6p65CDxnT6wSFGOmSsijAcwsKU9XafSNhPKh8YsA/exec';
 var CLIENT_ID = '571871934534-41idsg0uloc6r2s2flhcte8tafbhrvrs.apps.googleusercontent.com';
 var EN_MI_MAC = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-var LOCAL = !APPS_URL && EN_MI_MAC;      // solo en tu Mac se usa el servidor local; publicado, exige el backend de Google
+var LOCAL = EN_MI_MAC;      // solo en tu Mac se usa el servidor local; publicado, exige el backend de Google
 var API = LOCAL ? '/api' : APPS_URL;
 var TOKEN = '', waiters = [], gsiOk = false;
 try { TOKEN = sessionStorage.getItem('sowy_tk') || ''; } catch(e){}
