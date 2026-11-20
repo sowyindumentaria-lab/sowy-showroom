@@ -1,0 +1,12 @@
+data/
+fotos/
+__pycache__/
+.DS_Store
+muestras/
+presupuestos/
+server.py
+seed.py
+demo.command
+PROGRESS.md
+SEGURIDAD.md
+.claude/

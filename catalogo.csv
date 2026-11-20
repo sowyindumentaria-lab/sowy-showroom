@@ -1,0 +1,43 @@
+t,2026-11-20 17:40:42
+K,whatsapp,5491100000000
+K,email,
+K,instagram,
+K,horarios,Lunes a sábado de 10 a 20 h
+K,direccion,
+K,mensaje_pedido,"Hola Sowy! Quiero hacer este pedido:
+
+{productos}
+
+Total: {total}
+
+¿Cómo acordamos la fecha de retiro por el local y el pago?"
+K,formato_linea,• {producto}{nota} — {subtotal}
+K,mensaje_contacto,"Hola Sowy! Soy {nombre} ({contacto}).
+
+{mensaje}"
+K,mensaje_consulta,Hola Sowy! Quiero consultar por: {producto}
+C,Remeras,Básicas y estampadas,remera,#E6007E,,1
+C,Buzos y camperas,Abrigo con onda,buzo,#7A7A85,,2
+C,Jeans y pantalones,El fit que buscás,pantalon,#5C86B8,,3
+C,Vestidos y polleras,Para cada ocasión,vestido,#FF5CAA,,4
+C,Accesorios,El toque final,gorra,#B4005F,,5
+T,sanvalentin,San Valentín,01/02,14/02,auto,San Valentín: elegí un regalo único.
+T,madre,Día de la Madre,01/10,20/10,auto,Día de la Madre: piezas únicas para ella.
+T,halloween,Halloween,20/10,31/10,auto,Halloween: lo más oscuro de la temporada.
+T,blackfriday,Black Friday,24/11,30/11,auto,Black Friday: ofertas en piezas únicas.
+T,navidad,Navidad,01/12,26/12,auto,Navidad: regalá una pieza única.
+P,pa65rhbkm,Jean estrellado,Jeans y pantalones,Jean,,54900,0,Jean de tiro alto con estrellas bordadas. Denim con un toque de elastano.,,,1,,38,Azul:#2F4468,jean
+P,pi84q4cev,Jean estrellado,Jeans y pantalones,Jean,,54900,0,Jean de tiro alto con estrellas bordadas. Denim con un toque de elastano.,,,2,,40,Negro:#111113,jean
+P,pir3xntuo,Jean estrellado,Jeans y pantalones,Jean,,54900,0,Jean de tiro alto con estrellas bordadas. Denim con un toque de elastano.,,,3,,36,Blanco:#FFFFFF,jean
+P,p876v9z89,Remera oversize Sowy,Remeras,Remera,,24500,15,Oversize con estampa Sowy en el pecho. Algodón grueso y caída holgada.,,,4,,M,Negro:#111113,remera-logo
+P,p0uys472x,Remera básica de algodón,Remeras,Remera,,16900,0,"Algodón peinado, calce regular y cuello reforzado. La que combina con todo.",,,6,,S,Blanco:#FFFFFF;Negro:#111113;Fucsia:#E6007E,remera
+P,pc8fc0bfr,Buzo canguro friza,Buzos y camperas,Buzo,,42900,0,"Friza suave por dentro, capucha con cordón y bolsillo canguro.",,,7,,M,Fucsia:#E6007E,buzo
+P,paymvuqin,Campera rompeviento,Buzos y camperas,Campera,,58900,20,"Liviana, resistente al viento y con cierre frontal. Se guarda en cualquier cartera.",,,8,,L,Negro:#111113,campera
+P,plrdb8kuh,Bomber satinada,Buzos y camperas,Campera,,64900,0,Bomber de satén con puños elastizados.,,,9,,S,Fucsia:#E6007E,campera
+P,p3o8ps7dd,Pantalón cargo,Jeans y pantalones,Pantalón,,49500,0,Gabardina con bolsillos laterales. Cómodo y con onda urbana.,,,10,,40,Crema:#E8DCC6,cargo
+P,p499kt5vm,Short de jean,Jeans y pantalones,Short,,29900,0,Short de tiro alto con dobladillo desflecado.,,,11,34900,36,Celeste:#8FB3D9,short
+P,pwhxarkzt,Vestido midi satinado,Vestidos y polleras,Vestido,,62000,0,"Satén fluido con breteles finos. Para una cena, un evento o una salida.",,,12,,M,Negro:#111113,vestido
+P,p2g87mrjg,Vestido corto de algodón,Vestidos y polleras,Vestido,,39900,0,"Vestido básico y fresco, con breteles. Se usa con zapatillas o con tacos.",,,13,,S,Blanco:#FFFFFF,vestido-corto
+P,p5ebz65a8,Pollera plisada,Vestidos y polleras,Pollera,,34500,0,Plisada con cintura elastizada. Tiene vuelo y se mueve con vos.,,,14,,M,Fucsia:#E6007E,pollera
+P,pzvp6ytd3,Gorra bordada Sowy,Accesorios,Gorra,,18500,0,Gorra de gabardina con logo bordado y cierre regulable.,,,15,,Único,Negro:#111113,gorra
+P,p1324nmh1,Jean estrellado,Jeans y pantalones,Jean,,54900,0,,,,16,,42,Rojo:#D00000,jean
