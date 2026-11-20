@@ -243,26 +243,26 @@ var CLIENT_ID = '571871934534-41idsg0uloc6r2s2flhcte8tafbhrvrs.apps.googleuserco
 var EN_MI_MAC = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 var LOCAL = EN_MI_MAC;      // solo en tu Mac se usa el servidor local; publicado, exige el backend de Google
 var API = LOCAL ? '/api' : APPS_URL;
-var TOKEN = '', waiters = [], gsiOk = false;
-try { TOKEN = sessionStorage.getItem('sowy_tk') || ''; } catch(e){}
+var TOKEN = '', waiters = [], gsiOk = false, lastAct = Date.now(), IDLE_MS = 15 * 60 * 1000;
+try { sessionStorage.removeItem('sowy_tk'); } catch(e){}   // la sesión vive solo en memoria: al recargar hay que volver a entrar
 function tokenOk(t){
   if(LOCAL) return true;
   try { var p = JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))); return p.exp * 1000 > Date.now() + 60000; } catch(e){ return false; }
 }
 function showLogin(msg){
   $('#login').classList.add('on'); $('#login-err').textContent = msg || '';
-  if(gsiOk){ try { google.accounts.id.prompt(); } catch(e){} }
+  try { google.accounts.id.disableAutoSelect(); } catch(e){}
 }
 function onCred(resp){
   TOKEN = resp.credential;
-  try { sessionStorage.setItem('sowy_tk', TOKEN); } catch(e){}
+  lastAct = Date.now();
   $('#login').classList.remove('on');
   var w = waiters; waiters = []; w.forEach(function(f){ f(); });
   if(!S) start();
 }
 function gsiReady(){
   gsiOk = true;
-  google.accounts.id.initialize({ client_id: CLIENT_ID, callback: onCred, auto_select: true, cancel_on_tap_outside: false });
+  google.accounts.id.initialize({ client_id: CLIENT_ID, callback: onCred, auto_select: false, cancel_on_tap_outside: false });
   google.accounts.id.renderButton($('#gbtn'), { theme: 'filled_black', size: 'large', shape: 'pill', text: 'signin_with', locale: 'es', width: 280 });
   if(!tokenOk(TOKEN)){ showLogin(''); }
 }
@@ -286,6 +286,11 @@ function call(fn){
     return j.data;
   }, function(){ throw new Error('No hay conexión con el servidor. Revisá tu internet.'); });
 }
+['pointerdown','keydown','touchstart'].forEach(function(ev){ document.addEventListener(ev, function(){ lastAct = Date.now(); }, { passive: true }); });
+setInterval(function(){
+  if(LOCAL || !TOKEN) return;
+  if(Date.now() - lastAct > IDLE_MS){ TOKEN = ''; S = null; $('#view').innerHTML = ''; showLogin('Cerramos tu sesión por inactividad. Volvé a ingresar.'); }
+}, 30000);
 $('#btn-out').onclick = function(){
   TOKEN = ''; S = null; try { sessionStorage.removeItem('sowy_tk'); } catch(e){}
   try { google.accounts.id.disableAutoSelect(); } catch(e){}
