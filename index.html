@@ -774,7 +774,7 @@ function buildCatalog(rows){
     // pieza única: r[4] = tipo de prenda, r[13] = talle (uno solo), r[14] = colores disponibles (varios solo si la prenda existe en varios colores)
     else if(r[0] === 'P') prods.push({id:r[1], name:r[2], cat:r[3], tipo:r[4] || '', price:r[6] === '' || r[6] == null ? null : +r[6],
       off:Math.max(0, Math.min(95, +r[7] || 0)), desc:r[8] || '', fotos:(r[9] || '').split(';').filter(f => isFile(f) ? !isVideoFile(f) : gid(f)), videos:(r[10] || '').split(';').filter(f => isFile(f) ? isVideoFile(f) : gid(f)),
-      order:+r[11] || 0, lista:r[12] === '' || r[12] == null ? null : +r[12], talles:(r[13] || '').split(';').map(x => x.trim()).filter(Boolean), colores:parseColors(r[14]), forma:r[15] || 'remera'});
+      order:+r[11] || 0, lista:r[12] === '' || r[12] == null ? null : +r[12], talles:(r[13] || '').split(';').map(x => x.trim()).filter(Boolean), colores:parseColors(r[14]), forma:r[15] || 'remera', unica:r[16] !== '0'});
   });
   cats.sort((a, b) => a.order - b.order);
   const rank = new Map(cats.map((c, i) => [c.name.toLowerCase(), i]));
@@ -821,7 +821,7 @@ function actionHTML(p, cls = 'add', modal = false){
   if(needsChoice(p)) return `<button class="${cls}" data-open="${esc(p.id)}">Elegir color</button>`;
   return `<button class="${cls}" data-add="${esc(p.id)}">Agregar</button>`;
 }
-function tagsHTML(p){ return '<span class="tag">Pieza única</span>'; }
+function tagsHTML(p){ return p.unica === false ? '' : '<span class="tag">Pieza única</span>'; }
 function ribbonHTML(p){ return pct(p) > 0 ? `<span class="badge-off">−${pct(p)}%</span>` : ''; }
 function renderGrid(){
   const list = PRODUCTS.filter(p => filter === 'all' || p.cat === filter);
@@ -980,7 +980,7 @@ function renderCart(){
   $('#lines').innerHTML = keys.length ? keys.map(k => { const {id, color} = parseKey(k), p = find(id), u = unit(p), v = variantText(p, color); return `
     <div class="line">
       <div class="thumb"><div class="art-mini">${art(p, 't' + sid(k), colorOf(p, color))}${photoOf(p, 160)}</div></div>
-      <div><h4>${esc(cap(p.name))}</h4><span class="u">${v ? esc(v) : ''}${pct(p) > 0 ? ' · oferta −' + pct(p) + '%' : ''}</span><span class="u2">Pieza única</span></div>
+      <div><h4>${esc(cap(p.name))}</h4><span class="u">${v ? esc(v) : ''}${pct(p) > 0 ? ' · oferta −' + pct(p) + '%' : ''}</span>${p.unica === false ? '' : '<span class="u2">Pieza única</span>'}</div>
       <div><div class="sub">${fmt(u)}</div><button class="rm" data-rm="${esc(k)}">Quitar</button></div>
     </div>`; }).join('') : `
     <div class="empty"><svg><use href="#i-cart"/></svg><strong>Tu carrito está vacío</strong><span>Sumá prendas para armar tu pedido.</span></div>`;
@@ -993,7 +993,7 @@ function renderCart(){
   save();
 }
 function add(key){
-  if(cart[key]){ toast('Es una pieza única: ya está en tu carrito'); return false; }
+  if(cart[key]){ const p = find(parseKey(key).id); toast(p && p.unica === false ? 'Ya está en tu carrito' : 'Es una pieza única: ya está en tu carrito'); return false; }
   cart[key] = 1; renderCart(); return true;
 }
 /* Al enviar el pedido por WhatsApp, también queda anotado en el panel (sección Pedidos). Un mismo carrito enviado dos veces seguidas no se duplica. */

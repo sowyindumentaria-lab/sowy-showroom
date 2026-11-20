@@ -179,6 +179,8 @@ input[type=color]{width:42px;height:38px;padding:2px;border-radius:10px;backgrou
 #gbtn{min-height:44px;width:280px;margin:0 auto;display:flex;justify-content:center;color-scheme:light;background:transparent;border-radius:999px;overflow:hidden}
 #gbtn iframe{color-scheme:light;background:transparent!important;margin:0!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+label.uni input{width:24px;height:24px;flex:none;accent-color:var(--pink);margin:0}
+label.uni{gap:12px;align-items:center;padding:12px 0}
 </style>
 </head>
 <body>
@@ -410,7 +412,7 @@ function proxPieza(modelo, excepto){
 function editProduct(id){
   var p = id ? S.productos.filter(function(x){ return x.id === id; })[0] : null;
   var isNew = !p;
-  p = p || { modelo: '', pieza: 0, nombre: '', categoria: F.cat || (S.categorias[0] && S.categorias[0].nombre) || '', tipo: '', talle: '', costo: null, precio: null, lista: null, oferta: 0, descripcion: '', visible: true, fotos: [], videos: [], colores: [], ventas: {}, forma: 'remera' };
+  p = p || { modelo: '', pieza: 0, nombre: '', categoria: F.cat || (S.categorias[0] && S.categorias[0].nombre) || '', tipo: '', talle: '', costo: null, precio: null, lista: null, oferta: 0, descripcion: '', visible: true, unica: true, fotos: [], videos: [], colores: [], ventas: {}, forma: 'remera' };
   var catOpts = S.categorias.map(function(c){ return '<option' + (c.nombre === p.categoria ? ' selected' : '') + '>' + esc(c.nombre) + '</option>'; }).join('') + '<option value="__new">＋ Nueva categoría…</option>';
   var formaOpts = AR.formas.map(function(f){ return '<option value="' + f[0] + '"' + (f[0] === p.forma ? ' selected' : '') + '>' + f[1] + '</option>'; }).join('');
   var tipos = TIPOS_BASE.slice(); S.productos.forEach(function(x){ if(x.tipo && tipos.indexOf(x.tipo) < 0) tipos.push(x.tipo); });
@@ -435,6 +437,7 @@ function editProduct(id){
     '<div id="w-of" style="margin-top:10px;display:' + (p.oferta > 0 ? 'block' : 'none') + '"><div class="row"><div style="width:120px"><label class="l" for="f-of">Descuento %</label><input type="number" id="f-of" min="1" max="95" step="1" inputmode="numeric" value="' + (p.oferta > 0 ? p.oferta : 10) + '"></div><div id="f-ofprev" class="hint" style="flex:1;font-size:14px"></div></div></div></div>' +
     '<div><label class="l" for="f-desc">Descripción</label><textarea id="f-desc" maxlength="1500" placeholder="Tela, calce, cuidados… Se muestra en la ventana de la prenda.">' + esc(p.descripcion) + '</textarea></div>' +
     '<div><label class="l" for="f-forma">Ilustración (se usa mientras no haya foto)</label><div class="pv"><div class="th" id="f-pv"></div><select id="f-forma" style="flex:1">' + formaOpts + '</select></div></div>' +
+    '<label class="row uni" for="f-uni" style="cursor:pointer"><input type="checkbox" id="f-uni"' + (p.unica !== false ? ' checked' : '') + '><div style="flex:1"><b>Mostrar “Pieza única”</b><div class="hint">Tildalo si es una sola prenda. Destildalo para que la tienda no muestre la etiqueta.</div></div></label>' +
     '<div class="row"><div style="flex:1"><b>Visible en la tienda</b></div><button class="sw" id="f-vis" type="button" role="switch" aria-label="Visible en la tienda" aria-checked="' + p.visible + '"></button></div>' +
     '<div id="w-media"></div>' +
     (isNew ? '' : '<button class="btn danger" id="f-del" type="button">Eliminar prenda</button>') +
@@ -495,7 +498,7 @@ function editProduct(id){
   $('#f-save').onclick = async function(){
     var cat = $('#f-cat').value === '__new' ? $('#f-newcat').value.trim() : $('#f-cat').value;
     var data = { id: p.id || '', modelo: $('#f-modelo').value.trim(), nombre: $('#f-nombre').value.trim(), categoria: cat, tipo: $('#f-tipo').value.trim(), talle: $('#f-talle').value.trim(),
-      costo: $('#f-costo').value, precio: $('#f-precio').value, lista: $('#f-lista').value, oferta: st.of ? $('#f-of').value : 0, descripcion: $('#f-desc').value.trim(), visible: st.vis,
+      costo: $('#f-costo').value, precio: $('#f-precio').value, lista: $('#f-lista').value, oferta: st.of ? $('#f-of').value : 0, descripcion: $('#f-desc').value.trim(), visible: st.vis, unica: $('#f-uni').checked,
       colores: colores(), vendidos: vendidos(), forma: $('#f-forma').value };
     if(!data.modelo){ toast('Escribí el código de modelo (ej: E001)', true); return; }
     if(!data.nombre){ toast('Escribí el nombre de la prenda', true); return; }
