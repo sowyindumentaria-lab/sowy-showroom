@@ -1,5 +1,5 @@
 /* Sowy Panel — Copyright (c) 2026 Sowy (autor: Felipe Manrique). Todos los derechos reservados. Ver ../LICENSE */
-const VERSION = 'sowy-panel-v8';
+const VERSION = 'sowy-panel-v9';
 const CACHE = VERSION;
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', './index.html', './manifest.webmanifest', '../arte.js', '../marca/sowy.png', '../fuentes/BebasNeue.woff', '../marca/logo.png'])).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== CACHE).map(x => caches.delete(x)))).then(() => self.clients.claim())); });

@@ -3,7 +3,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.googleusercontent.com https://drive.google.com; media-src 'self' blob: https://*.googleusercontent.com https://drive.google.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src https://drive.google.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <script>(function(){var t;try{t=localStorage.getItem('sowy-theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sowy Showroom · Ropa</title>
@@ -726,7 +726,9 @@ body.scrolled .nav-edge{opacity:1}
 <script src="arte.js"></script>
 <script>
 /* ---------- Datos: catalogo.csv (en el celular se actualiza solo; al publicar se reemplaza por la hoja de Google publicada como CSV) ---------- */
-const DATA_URL = 'catalogo.csv';
+const BACKEND = 'https://script.google.com/macros/s/AKfycbw_nJ8LZGCmj8wu1JiVGBqV0n2moc6p65CDxnT6wSFGOmSsijAcwsKU9XafSNhPKh8YsA/exec';
+const EN_MI_MAC = ['localhost','127.0.0.1','[::1]'].includes(location.hostname) || location.protocol === 'file:';
+const DATA_URL = EN_MI_MAC ? 'catalogo.csv' : BACKEND + '?a=catalogo';
 const DEF = {
   whatsapp:'5491100000000', email:'', instagram:'', horarios:'Lunes a sábado de 10 a 20 h', direccion:'',
   mensaje_pedido:'Hola Sowy! Quiero hacer este pedido:\n\n{productos}\n\nTotal: {total}\n\n¿Cómo acordamos la fecha de retiro por el local y el pago?',
@@ -736,7 +738,7 @@ const DEF = {
 };
 const ICONS_OK = ['remera','buzo','campera','pantalon','vestido','pollera','gorra','cartera','zapatilla','percha','estrella'];
 let CFG = {...DEF}, CATS = [], PRODUCTS = [], TEMAS = [];
-const ORDERS_URL = '/pedido';      // al publicar: URL del backend de Google (Apps Script) que recibe los pedidos
+const ORDERS_URL = EN_MI_MAC ? '/pedido' : BACKEND;   // publicada: backend de Google (Apps Script) que recibe los pedidos
 const $ = s => document.querySelector(s);
 const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

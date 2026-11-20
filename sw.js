@@ -1,5 +1,5 @@
 /* Sowy — Copyright (c) 2026 Sowy (autor: Felipe Manrique). Todos los derechos reservados. Ver LICENSE. */
-const VERSION = 'sowy-v12';
+const VERSION = 'sowy-v13';
 const CACHE = VERSION;
 const SHELL = ['./', './index.html', './arte.js', './marca/logo.png', './marca/sowy.png', './fuentes/BebasNeue.woff', './manifest.webmanifest', './privacidad.html', './favicon.png', './icon-192.png', './icon-512.png', './maskable-192.png', './maskable-512.png', './apple-touch-icon.png'];
 
