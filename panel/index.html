@@ -785,11 +785,16 @@ function viewTem(){
 }
 
 /* ================= MÁS (mensajes y datos del negocio) ================= */
+function viewGui(){
+  var G = [['Guia-Panel-Sowy.pdf', 'Guía del panel de servicio', 'Prendas, pedidos, fotos, temas y mensajes, paso a paso'], ['Guia-Tienda-Sowy.pdf', 'Guía de la tienda', 'Cómo compra una clienta, de punta a punta']];
+  $(VIEW).innerHTML = '<h2>Guías de uso</h2><div class="hint" style="margin-bottom:12px">Instructivos en PDF para leer o descargar en el celu.</div><div class="stack">' +
+    G.map(function(g){ return '<a class="card" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit" href="guias/' + g[0] + '" target="_blank" rel="noopener" download><div style="flex:1"><b>' + g[1] + '</b><div class="hint">' + g[2] + ' · PDF</div></div><span class="btn sm primary" style="pointer-events:none">Abrir</span></a>'; }).join('') + '</div>';
+}
 function viewMas(){
-  $('#view').innerHTML = '<div class="seg" id="mas-seg" role="group" aria-label="Sección" style="margin-bottom:14px"><button type="button" data-s="msg" aria-pressed="' + (MAS === 'msg') + '">Mensajes</button><button type="button" data-s="biz" aria-pressed="' + (MAS === 'biz') + '">Negocio</button></div><div id="mas-body"></div>';
+  $('#view').innerHTML = '<div class="seg" id="mas-seg" role="group" aria-label="Sección" style="margin-bottom:14px"><button type="button" data-s="msg" aria-pressed="' + (MAS === 'msg') + '">Mensajes</button><button type="button" data-s="biz" aria-pressed="' + (MAS === 'biz') + '">Negocio</button><button type="button" data-s="gui" aria-pressed="' + (MAS === 'gui') + '">Guías</button></div><div id="mas-body"></div>';
   [].forEach.call(document.querySelectorAll('#mas-seg [data-s]'), function(b){ b.onclick = function(){ MAS = b.dataset.s; viewMas(); }; });
   VIEW = '#mas-body';
-  try { (MAS === 'msg' ? viewMsg : viewBiz)(); } finally { VIEW = '#view'; }
+  try { (MAS === 'msg' ? viewMsg : MAS === 'gui' ? viewGui : viewBiz)(); } finally { VIEW = '#view'; }
 }
 
 /* ---------- Modo claro / oscuro (se recuerda en este navegador; sin elección guardada sigue al sistema) ---------- */
